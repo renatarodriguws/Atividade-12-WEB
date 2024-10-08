@@ -1,38 +1,53 @@
-let heroi = {
-    nome: "Valente",
-    vida: 100,
-    forca: 10,
-    recursos: 50
-};
+class Heroi {
+    constructor(nome) {
+        this.nome = nome;
+        this.vida = 100;
+        this.forca = 10;
+        this.recurso = 50;
+    }
+
+    status() {
+        console.log(`Status de ${this.nome}: Vida = ${this.vida}, Força = ${this.forca}, Recurso = ${this.recurso}`);
+    }
+
+    enfrentarDesafio() {
+        const desafio = Math.floor(Math.random() * 3);
+        switch (desafio) {
+            case 0:
+                this.vida -= 20;
+                console.log(`${this.nome} enfrentou uma armadilha e perdeu 20 de vida!`);
+                break;
+            case 1:
+                this.forca += 5;
+                console.log(`${this.nome} encontrou uma arma poderosa e ganhou 5 de força!`);
+                break;
+            case 2:
+                this.recurso += 30;
+                console.log(`${this.nome} encontrou um tesouro e ganhou 30 de recurso!`);
+                break;
+        }
+    }
+}
+
+let luna = new Heroi("Luna");
+let rodadas = 5;
 
 function start() {
-    console.log("Bem-vindo à Aventura do Herói!");
-    console.log(`Você é ${heroi.nome}.`);
-    console.log(`VIDA: ${heroi.vida}, FORÇA: ${heroi.forca}, RECURSOS: ${heroi.recursos}`);
-
-    let rodadas = 5;
+    console.log("Aventura de Luna começou!");
+    luna.status();
+    
     for (let i = 0; i < rodadas; i++) {
         console.log(`Rodada ${i + 1}:`);
-        let desafio = Math.floor(Math.random() * 20);
-        console.log(`Desafio: ${desafio}`);
-        
-        if (heroi.forca > desafio) {
-            console.log("Você venceu o desafio!");
-            heroi.recursos += 10; // Ganha recursos
-        } else {
-            console.log("Você perdeu o desafio...");
-            heroi.vida -= 20; // Perde vida
-        }
+        luna.enfrentarDesafio();
+        luna.status();
 
-        // Atualiza status do herói
-        console.log(`VIDA: ${heroi.vida}, FORÇA: ${heroi.forca}, RECURSOS: ${heroi.recursos}`);
-        
-        // Verifica se o herói ainda está vivo
-        if (heroi.vida <= 0) {
-            console.log("Você foi derrotado! Fim do jogo.");
+        if (luna.vida <= 0) {
+            console.log(`${luna.nome} foi derrotada! Fim de jogo.`);
             return;
         }
     }
 
-    console.log("Parabéns! Você completou todas as rodadas e saiu VIVO!");
+    console.log(`${luna.nome} venceu a aventura com vida: ${luna.vida}, força: ${luna.forca}, recurso: ${luna.recurso}`);
 }
+
+// Para iniciar o jogo, execute o comando: start()
