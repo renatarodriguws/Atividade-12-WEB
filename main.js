@@ -184,4 +184,4 @@ function final() {
 }
 
 // Inicia o jogo
-// start();
+start();
