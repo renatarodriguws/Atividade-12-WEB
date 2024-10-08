@@ -1,187 +1,131 @@
-let hero = {
-    name: "",
-    vida: 100,
-    forca: 10,
-    recurso: 50,
-    alimentos: 0,
-    fase: 1
-};
-
-let inimigosPorFase = {
-    1: [{ nome: "Goblin", vida: 30, dano: 10 }, { nome: "Lobo", vida: 25, dano: 8 }],
-    2: [{ nome: "Esqueleto", vida: 40, dano: 15 }, { nome: "Orc", vida: 50, dano: 20 }],
-    3: [{ nome: "Dragão", vida: 80, dano: 25 }, { nome: "Chefe das Trevas", vida: 100, dano: 30 }]
-};
+// Variáveis iniciais
+let nome = "";
+let vida = 100;
+let forca = 50;
+let recurso = 30; // Pode ser dinheiro, magia, poções etc.
 
 function start() {
-    function start() {
-        let nomeHeroi;
-        
-        // Solicita o nome do herói até que algo seja digitado
-        do {
-            nomeHeroi = prompt("Digite o nome do seu personagem:");
-            if (!nomeHeroi) {
-                alert("Você precisa digitar um nome!");
-            }
-        } while (!nomeHeroi);
-        
-        hero.name = nomeHeroi;
-        alert(`Era uma vez um(a) HERÓI(NA) conhecido(a) como ${hero.name}, que precisa ir em uma aventura para salvar um vilarejo ameaçado por forças do mal. Como será que essa história termina?`);
-        gameLoop();
-    }    
-}
-
-function gameLoop() {
-    if (hero.vida <= 0) {
-        alert(`${hero.name} foi derrotado! Fim de jogo.`);
-        return;
-    }
-
-    alert(`Status: Vida: ${hero.vida}, Força: ${hero.forca}, Recursos: ${hero.recurso}, Alimentos: ${hero.alimentos}, Fase: ${hero.fase}`);
-    
-    if (hero.fase > 3) {
-        final();
-        return;
-    }
-
-    let action = prompt("O que você quer fazer? (Ex: 'atacar', 'explorar', 'descansar', 'status')");
-
-    switch (action.toLowerCase()) {
-        case 'atacar':
-            combate();
-            break;
-        case 'explorar':
-            explorar();
-            break;
-        case 'descansar':
-            descansar();
-            break;
-        case 'status':
-            mostrarStatus();
-            break;
-        default:
-            alert("Ação inválida! Tente novamente.");
-            gameLoop();
-            break;
-    }
-}
-
-function combate() {
-    let inimigo = escolherInimigo();
-    alert(`Um ${inimigo.nome} apareceu!`);
-
-    while (inimigo.vida > 0 && hero.vida > 0) {
-        let acao = prompt("Você quer 'atacar' ou 'fugir'?").toLowerCase();
-        
-        if (acao === 'atacar') {
-            inimigo.vida -= hero.forca;
-            alert(`${hero.name} atacou ${inimigo.nome}! Vida do inimigo: ${inimigo.vida}`);
-            if (inimigo.vida > 0) {
-                hero.vida -= inimigo.dano;
-                alert(`${inimigo.nome} atacou ${hero.name}! Vida do herói: ${hero.vida}`);
-            }
-        } else if (acao === 'fugir') {
-            alert(`${hero.name} fugiu da batalha!`);
-            break;
-        } else {
-            alert("Ação inválida! Você perdeu a vez.");
-            hero.vida -= inimigo.dano;
-            alert(`${inimigo.nome} atacou ${hero.name}! Vida do herói: ${hero.vida}`);
-        }
-    }
-
-    if (hero.vida > 0 && inimigo.vida <= 0) {
-        alert(`${hero.name} derrotou ${inimigo.nome}!`);
-        hero.recurso += 20;
-    }
-
-    if (hero.fase === 1 && inimigo.nome === "Lobo" && inimigo.vida <= 0) {
-        hero.fase++;
-        alert(`${hero.name} completou a Fase 1! Avançando para a Fase 2.`);
-    } else if (hero.fase === 2 && inimigo.nome === "Orc" && inimigo.vida <= 0) {
-        hero.fase++;
-        alert(`${hero.name} completou a Fase 2! Avançando para a Fase 3.`);
-    }
-
-    gameLoop();
-}
-
-function escolherInimigo() {
-    let inimigos = inimigosPorFase[hero.fase];
-    return inimigos[Math.floor(Math.random() * inimigos.length)];
-}
-
-function explorar() {
-    const achado = Math.random() < 0.5;
-    if (achado) {
-        let recursoEncontrado = Math.floor(Math.random() * 30) + 1; // Recursos de 1 a 30
-        alert(`${hero.name} encontrou ${recursoEncontrado} recursos!`);
-        hero.recurso += recursoEncontrado;
-    } else {
-        let alimentoEncontrado = Math.floor(Math.random() * 5) + 1; // Alimentos de 1 a 5
-        alert(`${hero.name} encontrou ${alimentoEncontrado} alimentos!`);
-        hero.alimentos += alimentoEncontrado;
-    }
-
-    let encontroInimigo = Math.random() < 0.3; // 30% chance de encontrar um inimigo
-    if (encontroInimigo) {
-        alert(`${hero.name} encontrou um inimigo! Prepare-se para o combate!`);
-        combate();
-    }
-
-    gameLoop();
-}
-
-function descansar() {
-    alert(`${hero.name} descansou e recuperou 10 vida!`);
-    hero.vida = Math.min(hero.vida + 10, 100);
-    if (hero.alimentos > 0) {
-        hero.alimentos--;
-        alert(`${hero.name} consumiu um alimento. Alimentos restantes: ${hero.alimentos}`);
-        hero.vida = Math.min(hero.vida + 5, 100); // Recupera mais vida ao descansar
-    } else {
-        alert(`${hero.name} não tem alimentos para consumir.`);
-    }
-    gameLoop();
+    nome = prompt("Digite o nome do(a) herói(na):");
+    console.log(`Era uma vez um(a) herói(na) chamado(a) ${nome} que precisa enfrentar uma grande aventura.`);
+    rodada1();
 }
 
 function mostrarStatus() {
-    alert(`Status do Herói: \nVida: ${hero.vida} \nForça: ${hero.forca} \nRecursos: ${hero.recurso} \nAlimentos: ${hero.alimentos} \nFase: ${hero.fase}`);
-    gameLoop();
+    console.log(`STATUS DO HERÓI(NA) ${nome}: Vida: ${vida}, Força: ${forca}, Recurso: ${recurso}`);
 }
 
-function final() {
-    alert(`${hero.name} chegou ao vilarejo e enfrentou o Chefe das Trevas!`);
-    let chefe = { nome: "Chefe das Trevas", vida: 100, dano: 30 };
+function rodada1() {
+    console.log("\nRodada 1: Encontro na floresta");
+    console.log(`${nome} se depara com um monstro!`);
+    
+    let acao = prompt("Você quer lutar (1) ou fugir (2)?");
+    
+    if (acao == 1) {
+        console.log(`${nome} decide lutar!`);
+        lutar(20, 10);  // Dano e força do monstro
+    } else {
+        console.log(`${nome} decide fugir, mas perde recursos no processo.`);
+        vida -= 10;
+        recurso -= 5;
+    }
 
-    while (chefe.vida > 0 && hero.vida > 0) {
-        let acao = prompt("Você quer 'atacar' ou 'fugir'?").toLowerCase();
-        
-        if (acao === 'atacar') {
-            chefe.vida -= hero.forca;
-            alert(`${hero.name} atacou ${chefe.nome}! Vida do Chefe das Trevas: ${chefe.vida}`);
-            if (chefe.vida > 0) {
-                hero.vida -= chefe.dano;
-                alert(`${chefe.nome} atacou ${hero.name}! Vida do herói: ${hero.vida}`);
-            }
-        } else if (acao === 'fugir') {
-            alert(`${hero.name} fugiu da batalha!`);
-            break;
+    mostrarStatus();
+    if (vida > 0) rodada2();
+}
+
+function rodada2() {
+    console.log("\nRodada 2: A caverna gelada");
+    console.log(`${nome} encontra um baú misterioso.`);
+    
+    let acao = prompt("Você quer abrir o baú (1) ou ignorá-lo (2)?");
+    
+    if (acao == 1) {
+        console.log(`${nome} encontra uma poção de cura!`);
+        vida += 20;
+        recurso += 10;
+    } else {
+        console.log(`${nome} ignora o baú e segue em frente.`);
+    }
+
+    mostrarStatus();
+    if (vida > 0) rodada3();
+}
+
+function rodada3() {
+    console.log("\nRodada 3: O chefe final");
+    console.log(`${nome} chega ao covil do chefe maligno!`);
+    
+    let acao = prompt("Você quer enfrentar o chefe (1) ou tentar negociar (2)?");
+
+    if (acao == 1) {
+        console.log(`${nome} decide lutar com todas as suas forças!`);
+        lutar(50, 30);  // Dano e força do chefe final
+    } else {
+        console.log(`${nome} tenta negociar, mas o chefe não aceita e ataca!`);
+        lutar(50, 20);  // Negociar causa menos dano, mas ainda é uma luta
+    }
+
+    mostrarStatus();
+    if (vida > 0) rodada4(); // Continua para a próxima rodada se o jogador sobreviver
+}
+
+function rodada4() {
+    console.log("\nRodada 4: O Vale do Vento Morto");
+    console.log(`${nome} atravessa um vale árido e misterioso, onde ventos traiçoeiros roubam a energia dos viajantes.`);
+    
+    let acao = prompt("Você quer montar um acampamento e descansar (1) ou continuar andando sem parar (2)?");
+
+    if (acao == 1) {
+        console.log(`${nome} monta um acampamento e recupera parte de sua força.`);
+        vida += 10;
+        forca += 5;
+    } else {
+        console.log(`${nome} continua andando, mas sofre o efeito dos ventos fortes, perdendo energia.`);
+        vida -= 15;
+        forca -= 10;
+    }
+
+    mostrarStatus();
+    if (vida > 0) rodada5();
+}
+
+function rodada5() {
+    console.log("\nRodada 5: O Guardião do Portal");
+    console.log(`${nome} chega ao último obstáculo: um guardião gigantesco que protege o portal para a vila.`);
+    
+    let acao = prompt("Você quer lutar com o guardião (1) ou tentar resolver o enigma (2)?");
+
+    if (acao == 1) {
+        console.log(`${nome} ataca o guardião com todas as suas forças!`);
+        lutar(60, 40);  // Dano e força do guardião
+    } else {
+        console.log(`${nome} decide resolver o enigma que o guardião propôs.`);
+        let resposta = prompt("O guardião pergunta: 'O que tem cabeça, mas não pensa?' (1) Alfinete (2) Pedra");
+
+        if (resposta == 1) {
+            console.log(`O guardião fica satisfeito com a resposta e deixa ${nome} passar.`);
         } else {
-            alert("Ação inválida! Você perdeu a vez.");
-            hero.vida -= chefe.dano;
-            alert(`${chefe.nome} atacou ${hero.name}! Vida do herói: ${hero.vida}`);
+            console.log(`Resposta errada! O guardião ataca!`);
+            lutar(60, 40);  // Se errar o enigma, terá que lutar
         }
     }
 
-    if (hero.vida > 0 && chefe.vida <= 0) {
-        alert(`${hero.name} derrotou o Chefe das Trevas e salvou o vilarejo! Parabéns, você venceu!`);
-    } else if (hero.vida <= 0) {
-        alert(`${hero.name} foi derrotado pelo Chefe das Trevas! Fim de jogo.`);
+    mostrarStatus();
+    if (vida > 0) {
+        console.log(`Parabéns! ${nome} derrotou o guardião e atravessou o portal para salvar a vila!`);
+    } else {
+        console.log(`Infelizmente, ${nome} foi derrotado(a) no último desafio. A vila está em perigo.`);
     }
-
-    return;
 }
 
-// Inicia o jogo
-start();
+function lutar(dano, forcaMonstro) {
+    if (forca >= forcaMonstro) {
+        console.log(`${nome} venceu a batalha!`);
+        recurso += 10;
+    } else {
+        console.log(`${nome} foi ferido(a) gravemente!`);
+        vida -= dano;
+        forca -= 10;
+    }
+}
+
