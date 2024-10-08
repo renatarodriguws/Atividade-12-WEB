@@ -14,9 +14,21 @@ let inimigosPorFase = {
 };
 
 function start() {
-    hero.name = prompt("Digite o nome do seu personagem:");
-    alert(`Era uma vez um(a) HERÓI(NA) conhecido(a) como ${hero.name}, que precisa ir em uma aventura para salvar um vilarejo ameaçado por forças do mal. Como será que essa história termina?`);
-    gameLoop();
+    function start() {
+        let nomeHeroi;
+        
+        // Solicita o nome do herói até que algo seja digitado
+        do {
+            nomeHeroi = prompt("Digite o nome do seu personagem:");
+            if (!nomeHeroi) {
+                alert("Você precisa digitar um nome!");
+            }
+        } while (!nomeHeroi);
+        
+        hero.name = nomeHeroi;
+        alert(`Era uma vez um(a) HERÓI(NA) conhecido(a) como ${hero.name}, que precisa ir em uma aventura para salvar um vilarejo ameaçado por forças do mal. Como será que essa história termina?`);
+        gameLoop();
+    }    
 }
 
 function gameLoop() {
@@ -172,4 +184,4 @@ function final() {
 }
 
 // Inicia o jogo
-start();
+// start();
