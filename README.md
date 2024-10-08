@@ -2,25 +2,31 @@
 
 # Aventura do Herói
 
+# Aventura do Herói
+
 ## Descrição do Jogo
-"Aventura do Herói" é um jogo de texto interativo onde você controla um(a) herói(na) em uma missão épica para salvar um vilarejo ameaçado por forças do mal. Ao longo da jornada, você enfrentará diversos inimigos, coletará recursos e alimentos, e tomará decisões que afetarão o seu destino. O objetivo final é derrotar o Chefe das Trevas e restaurar a paz no vilarejo.
+
+Era uma vez um(a) herói(na) chamado(a) ________ que embarca em uma jornada para derrotar um grande inimigo e salvar sua vila. O(a) herói(na) precisa passar por três rodadas, enfrentando monstros, tomando decisões e gerenciando seus recursos para sobreviver até o final.
 
 ## Regras
-1. O jogador começa com 100 de vida, 10 de força e 50 recursos.
-2. O jogo é dividido em 3 fases, cada uma com inimigos únicos:
-   - **Fase 1:** Enfrente Goblins e Lobos.
-   - **Fase 2:** Enfrente Esqueletos e Orcs.
-   - **Fase 3:** Enfrente o Dragão e o Chefe das Trevas.
-3. O jogador pode escolher entre atacar inimigos, explorar o mundo ou descansar.
-4. O jogo termina se o jogador perder toda a vida ou derrotar o Chefe das Trevas.
 
-## Como jogar
-1. Abra o console do navegador.
-2. Execute o comando `start()` para iniciar o jogo.
-3. Insira o nome do seu personagem e comece sua aventura!
-4. Siga as instruções no console e faça suas escolhas. Você pode optar por atacar inimigos, explorar para encontrar recursos e alimentos, ou descansar para recuperar sua vida.
-5. O objetivo é avançar pelas fases e derrotar o Chefe das Trevas para salvar o vilarejo!
+1. O jogador deve inserir o nome de seu personagem no início do jogo.
+2. Em cada rodada, o jogador enfrentará desafios e tomará decisões que podem alterar suas características:
+   - **Vida**: Representa a saúde do(a) herói(na).
+   - **Força**: Representa a capacidade de combate do(a) herói(na).
+   - **Recursos**: Pode incluir dinheiro, poções ou itens mágicos.
+3. Se a vida do personagem chegar a 0, o jogo termina.
+4. O jogador vence ao completar todas as rodadas com vida.
+
+## Como Jogar
+
+1. Abra o jogo em um navegador.
+2. No console do navegador, digite o comando:
+   ```bash
+   start()
+3. Selecione as opções que mais lhe agradam em cada rodada.
 
 ## Autores
+
 - Renata Rodrigues Figueiredo
 - Enzo Ribeiro Almeida
